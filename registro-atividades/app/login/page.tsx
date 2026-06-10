@@ -30,10 +30,15 @@ export default function LoginPage() {
     <main className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <div className="w-full max-w-sm bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
         {/* Logo area */}
-        <div className="flex justify-center pt-8 pb-4">
-          <div className="w-20 h-20 rounded-full border-2 border-gray-300 flex items-center justify-center">
-            <span className="text-xs text-gray-400 font-light">&lt;logo&gt;</span>
-          </div>
+        <div className="flex flex-col items-center pt-8 pb-4">
+          <img
+            src="/logo.jpg"
+            alt="logo"
+            className="w-20 h-20 rounded-full border-2 border-gray-300 object-cover"
+          />
+          <span className="mt-3 text-sm font-semibold text-gray-700">
+            Registro de atividades
+          </span>
         </div>
 
         {/* Form */}
