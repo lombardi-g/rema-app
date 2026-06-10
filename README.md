@@ -4,24 +4,28 @@ It consists of an activity log app with authentication, database updates and a c
 
 ## Frontend
 The initial idea consisted of an auth screen that validates users, which leads to production screen
-[registro-atividades/public/app-screen1.jpg] ref
-[registro-atividades/public/app-screen2.jpg] ref
+<img height="300" src="registro-atividades/public/app-screen1.jpg">
+<img height="300" src="registro-atividades/public/app-screen2.jpg">
 
 in logging, only a description is prompted, as the app searches for brazilian current time for logging (GMT-3).
 
 ## Architecture
-This sketching demonstrates how to build and deploy the app, using free services while preparing for scalability.
-[public/sketch1.jpg] ref
+This sketch demonstrates how to build and deploy the app, using free services while preparing for database scalability.
+
+<img height="370" src="registro-atividades/public/sketch1.jpg">
 
 ## API documentation
-Since 
+
 <details>
-  <summary>API documentation</summary>
+  <summary>Collapse to see the API documentation</summary>
   
   ### Activities
   Search information on logged activities
   #### GET
+  
+  Method: GET
   `/api?resource=activities`
+  
   <br>Response sample
 
 ```json
@@ -39,7 +43,19 @@ Since
 | Id      | required |
 | Description| required   |
 
-`/api...`
+Method: POST
+`/api?resource=activities`
+
+body
+```json
+{
+  "description": "[your text here]",
+  "userId": 1,
+  "startTime": "2026-06-09T09:00:00Z",
+  "endTime": "2026-06-09T10:00:00Z"
+}
+```
+
 <br> Response sample
 
 ```json
@@ -48,7 +64,8 @@ Since
   "createdAt":"2026-06-09T17:25:19.000Z",
   "id":2,
   "userId":1,
-  "status": 201
+  "endTime": 2026-06-09T13:00:00.000Z,
+  "startTime": 2026-06-09T12:00:00.000Z
 }]
 ```
 
@@ -58,14 +75,17 @@ Since
 | ------------- |:-------------:|
 | Id      | required |
 
-`/api...`
+Method: DELETE
+`/api?resource=activities&id=$id`
+
+Replace `$id` with the activity id
 
 <br> Response sample
 
 ```json
+"status": 200
 [{
 "message": "activity deleted",
-"status": 200
 }]
 ```
 ---
