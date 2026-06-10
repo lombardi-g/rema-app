@@ -13,7 +13,7 @@ datasource db {
 }
 
 model User {
-  id         Int        @id @default(autoincrement())
+  id         String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   username   String     @unique
   password   String
   activities Activity[]
@@ -22,10 +22,11 @@ model User {
 
 model Activity {
   id          Int       @id @default(autoincrement())
+  title       String?
   description String
   startTime   DateTime?
   endTime     DateTime?
   createdAt   DateTime  @default(now())
-  userId      Int
+  userId      String    @db.Uuid
   user        User      @relation(fields: [userId], references: [id])
 }
