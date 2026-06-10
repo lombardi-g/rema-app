@@ -13,7 +13,7 @@ The initial idea consisted of an auth screen that validates users, which leads t
 <img height="280" src="registro-atividades/public/app-screen1.jpg">
 <img height="280" src="registro-atividades/public/app-screen2.jpg">
 
-in logging, only a description is prompted, as the app searches for brazilian current time for logging (GMT-3).
+
 
 ## Architecture
 This sketch demonstrates how to build and deploy the app, using free services while preparing for database scalability.
@@ -138,6 +138,10 @@ Replace `$id` with the activity id
 * Restrict POST and DELETE usage with tokens in endpoint
 * UX: Add a sticky css so that scrolling doesn't hide the input section
 * Add a dashboard page showing analytics
+* Switch start date and end date to brazil format (dd/mm/yyyy)
+* Block POST if startdate is equal or after end date
+* A refresh feature to update multiple users logging at the same time
+* createdAt timestamps are being kept in UTC timezone, not in GMT -3
 
 </details>
 
