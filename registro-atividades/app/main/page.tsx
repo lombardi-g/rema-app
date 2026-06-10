@@ -232,7 +232,7 @@ function Dashboard() {
                     <thead>
                       <tr>
                         <th className="text-left text-xs text-gray-400 font-normal pb-1 w-20">hora</th>
-                        <th className="text-left text-xs text-gray-400 font-normal pb-1 w-36">usuário</th>
+                        <th className="text-left text-xs text-gray-400 font-normal pb-1 w-24">usuário</th>
                         <th className="text-left text-xs text-gray-400 font-normal pb-1 w-20">início</th>
                         <th className="text-left text-xs text-gray-400 font-normal pb-1 w-20">término</th>
                         <th className="text-left text-xs text-gray-400 font-normal pb-1 w-24">duração</th>
