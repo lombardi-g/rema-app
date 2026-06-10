@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Registro de Atividades",
-  description: "Registre e acompanhe suas atividades",
+  description: "Aplicativo para prova do REMA",
 };
 
 export default function RootLayout({
