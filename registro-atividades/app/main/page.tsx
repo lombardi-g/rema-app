@@ -40,6 +40,14 @@ function formatDuration(startTime: string, endTime: string) {
   return `${m}min`
 }
 
+// Render a datetime-local value (yyyy-mm-ddThh:mm) as dd/mm/aaaa hh:mm for display
+function isoToBR(v: string) {
+  const m = v.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/)
+  if (!m) return ""
+  const [, yyyy, mm, dd, hh, min] = m
+  return `${dd}/${mm}/${yyyy} ${hh}:${min}`
+}
+
 function totalDuration(activities: Activity[]) {
   const ms = activities
     .filter((a) => a.startTime && a.endTime)
@@ -114,12 +122,6 @@ function Dashboard() {
     fetchActivities()
   }
 
-  function handleClear() {
-    setDescription("")
-    setStartTime("")
-    setEndTime("")
-  }
-
   // Group activities by date (descending)
   const grouped = activities.reduce<Record<string, Activity[]>>((acc, activity) => {
     const key = dateGroupKey(activity.createdAt)
@@ -132,13 +134,12 @@ function Dashboard() {
   if (status === "loading" || status === "unauthenticated") return null
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 sm:p-6">
-      <div className="max-w-4xl mx-auto bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+    <div>
 
         {/* Header */}
         <div className="flex items-start gap-4 p-4 sm:p-6 border-b border-gray-200">
           <img
-            src="/logo.jpg"
+            src="/logorema.jpg"
             alt="logo"
             className="shrink-0 w-14 h-14 rounded-full border-2 border-gray-300 object-cover"
           />
@@ -155,40 +156,51 @@ function Dashboard() {
                   className="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:outline-none focus:border-gray-500"
                 />
               </div>
-              <div className="flex items-end">
-                <button
-                  type="button"
-                  onClick={handleClear}
-                  className="px-3 py-1.5 border border-gray-300 rounded text-sm hover:bg-gray-50 transition-colors"
-                >
-                  limpar
-                </button>
-              </div>
             </div>
 
             {/* Time row */}
             <div className="flex flex-wrap items-end gap-2">
               <div className="flex flex-col gap-0.5">
                 <label className="text-xs text-gray-400">início</label>
-                <input
-                  type="datetime-local"
-                  lang="pt-BR"
-                  step={60}
-                  value={startTime}
-                  onChange={(e) => setStartTime(e.target.value)}
-                  className="border border-gray-300 rounded px-2 py-1.5 text-sm focus:outline-none focus:border-gray-500"
-                />
+                <div className="relative w-44">
+                  <input
+                    type="text"
+                    readOnly
+                    tabIndex={-1}
+                    placeholder="dd/mm/aaaa hh:mm"
+                    value={isoToBR(startTime)}
+                    className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm pointer-events-none focus:outline-none"
+                  />
+                  <input
+                    type="datetime-local"
+                    aria-label="início"
+                    value={startTime}
+                    onClick={(e) => (e.currentTarget as HTMLInputElement).showPicker?.()}
+                    onChange={(e) => setStartTime(e.target.value)}
+                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  />
+                </div>
               </div>
               <div className="flex flex-col gap-0.5">
                 <label className="text-xs text-gray-400">fim</label>
-                <input
-                  type="datetime-local"
-                  lang="pt-BR"
-                  step={60}
-                  value={endTime}
-                  onChange={(e) => setEndTime(e.target.value)}
-                  className="border border-gray-300 rounded px-2 py-1.5 text-sm focus:outline-none focus:border-gray-500"
-                />
+                <div className="relative w-44">
+                  <input
+                    type="text"
+                    readOnly
+                    tabIndex={-1}
+                    placeholder="dd/mm/aaaa hh:mm"
+                    value={isoToBR(endTime)}
+                    className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm pointer-events-none focus:outline-none"
+                  />
+                  <input
+                    type="datetime-local"
+                    aria-label="fim"
+                    value={endTime}
+                    onClick={(e) => (e.currentTarget as HTMLInputElement).showPicker?.()}
+                    onChange={(e) => setEndTime(e.target.value)}
+                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  />
+                </div>
               </div>
               <button
                 type="submit"
@@ -301,7 +313,6 @@ function Dashboard() {
             })
           )}
         </div>
-      </div>
     </div>
   )
 }

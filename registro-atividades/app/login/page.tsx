@@ -32,7 +32,7 @@ export default function LoginPage() {
         {/* Logo area */}
         <div className="flex flex-col items-center pt-8 pb-4">
           <img
-            src="/logo.jpg"
+            src="/logorema.jpg"
             alt="logo"
             className="w-20 h-20 rounded-full border-2 border-gray-300 object-cover"
           />
