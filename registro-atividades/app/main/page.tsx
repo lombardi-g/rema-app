@@ -40,14 +40,6 @@ function formatDuration(startTime: string, endTime: string) {
   return `${m}min`
 }
 
-// Render a datetime-local value (yyyy-mm-ddThh:mm) as dd/mm/aaaa hh:mm for display
-function isoToBR(v: string) {
-  const m = v.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/)
-  if (!m) return ""
-  const [, yyyy, mm, dd, hh, min] = m
-  return `${dd}/${mm}/${yyyy} ${hh}:${min}`
-}
-
 function totalDuration(activities: Activity[]) {
   const ms = activities
     .filter((a) => a.startTime && a.endTime)
@@ -162,45 +154,21 @@ function Dashboard() {
             <div className="flex flex-wrap items-end gap-2">
               <div className="flex flex-col gap-0.5">
                 <label className="text-xs text-gray-400">início</label>
-                <div className="relative w-44">
-                  <input
-                    type="text"
-                    readOnly
-                    tabIndex={-1}
-                    placeholder="dd/mm/aaaa hh:mm"
-                    value={isoToBR(startTime)}
-                    className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm pointer-events-none focus:outline-none"
-                  />
-                  <input
-                    type="datetime-local"
-                    aria-label="início"
-                    value={startTime}
-                    onClick={(e) => (e.currentTarget as HTMLInputElement).showPicker?.()}
-                    onChange={(e) => setStartTime(e.target.value)}
-                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                  />
-                </div>
+                <input
+                  type="datetime-local"
+                  value={startTime}
+                  onChange={(e) => setStartTime(e.target.value)}
+                  className="border border-gray-300 rounded px-2 py-1.5 text-sm focus:outline-none focus:border-gray-500"
+                />
               </div>
               <div className="flex flex-col gap-0.5">
                 <label className="text-xs text-gray-400">fim</label>
-                <div className="relative w-44">
-                  <input
-                    type="text"
-                    readOnly
-                    tabIndex={-1}
-                    placeholder="dd/mm/aaaa hh:mm"
-                    value={isoToBR(endTime)}
-                    className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm pointer-events-none focus:outline-none"
-                  />
-                  <input
-                    type="datetime-local"
-                    aria-label="fim"
-                    value={endTime}
-                    onClick={(e) => (e.currentTarget as HTMLInputElement).showPicker?.()}
-                    onChange={(e) => setEndTime(e.target.value)}
-                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                  />
-                </div>
+                <input
+                  type="datetime-local"
+                  value={endTime}
+                  onChange={(e) => setEndTime(e.target.value)}
+                  className="border border-gray-300 rounded px-2 py-1.5 text-sm focus:outline-none focus:border-gray-500"
+                />
               </div>
               <button
                 type="submit"
