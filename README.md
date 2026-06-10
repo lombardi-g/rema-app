@@ -1,11 +1,17 @@
-# Activity logger app
+# Activity log app
 This project is part of a selection process.
 It consists of an activity log app with authentication, database updates and a cloud-hosted api.
 
+> To get started, use these credentials
+
+| username        | password           |
+| ------------- |:-------------:|
+| guest      | guest123 |
+
 ## Frontend
 The initial idea consisted of an auth screen that validates users, which leads to production screen
-<img height="300" src="registro-atividades/public/app-screen1.jpg">
-<img height="300" src="registro-atividades/public/app-screen2.jpg">
+<img height="280" src="registro-atividades/public/app-screen1.jpg">
+<img height="280" src="registro-atividades/public/app-screen2.jpg">
 
 in logging, only a description is prompted, as the app searches for brazilian current time for logging (GMT-3).
 
@@ -111,17 +117,31 @@ Replace `$id` with the activity id
     * structure: https://next-auth.js.org/configuration/initialization
     * nextauth: https://next-auth.js.org/providers/credentials and https://next-auth.js.org/configuration/pages
     * middleware: https://next-auth.js.org/configuration/nextjs
+    * middleware to proxy: https://nextjs.org/docs/messages/middleware-to-proxy
 * https://docs.docker.com/reference/dockerfile
     * https://medium.com/@jaymesonmendes/setting-up-a-ci-cd-pipeline-with-github-actions-dockerhub-and-kubernetes-04b147867907
 * https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#jobsjob_iduses
     * https://medium.com/@jjzcru/building-a-ci-cd-pipeline-with-vercel-and-github-actions-f80d3a4a7de3
     * https://medium.com/@jaymesonmendes/setting-up-a-ci-cd-pipeline-with-github-actions-dockerhub-and-kubernetes-04b147867907 and https://github.com/docker/login-action
     * https://www.prisma.io/docs/orm/prisma-client/deployment/deploy-database-changes-with-prisma-migrate
-    * https://vercel.com/kb/guide/how-can-i-use-github-actions-with-vercel
+* https://vercel.com/kb/guide/how-can-i-use-github-actions-with-vercel
+* https://github.com/vercel/vercel/discussions/4307#discussioncomment-8888559
 
 </details>
 
 ## Improvements
-Since the scope of this project is demonstrating my skills and thought processes, I'll leave the ideas I had of the next steps I would work on to develop this further.
-- In production, passwords should be hashed using bcrypt
-- Restrict POST and DELETE usage with tokens in endpoint
+
+<details>
+  <summary>Since the scope of this project is demonstrating my skills and thought processes, I'll leave the ideas I had of the next steps I would work on to develop this further.</summary>
+
+* In production, passwords should be hashed using bcrypt
+* Restrict POST and DELETE usage with tokens in endpoint
+* UX: Add a sticky css so that scrolling doesn't hide the input section
+* Add a dashboard page showing analytics
+
+</details>
+
+## Final thoughts
+
+This project was an interesting way of exploring a different typescript framework, new libraries, more tools, while bringing some of my previous knowledge to the mix.
+It was a challenging way of learning, and delivering this in 48h was an engaging activity. I hope you enjoy!
