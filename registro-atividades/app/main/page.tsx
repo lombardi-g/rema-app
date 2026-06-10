@@ -135,9 +135,11 @@ function Dashboard() {
 
         {/* Header */}
         <div className="flex items-start gap-4 p-4 sm:p-6 border-b border-gray-200">
-          <div className="shrink-0 w-14 h-14 rounded-full border-2 border-gray-300 flex items-center justify-center">
-            <span className="text-[10px] text-gray-400">&lt;logo&gt;</span>
-          </div>
+          <img
+            src="/logo.jpg"
+            alt="logo"
+            className="shrink-0 w-14 h-14 rounded-full border-2 border-gray-300 object-cover"
+          />
 
           <form onSubmit={handleSubmit} className="flex-1 flex flex-col gap-2">
             {/* Description row */}
@@ -168,6 +170,8 @@ function Dashboard() {
                 <label className="text-xs text-gray-400">início</label>
                 <input
                   type="datetime-local"
+                  lang="pt-BR"
+                  step={60}
                   value={startTime}
                   onChange={(e) => setStartTime(e.target.value)}
                   className="border border-gray-300 rounded px-2 py-1.5 text-sm focus:outline-none focus:border-gray-500"
@@ -177,6 +181,8 @@ function Dashboard() {
                 <label className="text-xs text-gray-400">fim</label>
                 <input
                   type="datetime-local"
+                  lang="pt-BR"
+                  step={60}
                   value={endTime}
                   onChange={(e) => setEndTime(e.target.value)}
                   className="border border-gray-300 rounded px-2 py-1.5 text-sm focus:outline-none focus:border-gray-500"
@@ -201,7 +207,7 @@ function Dashboard() {
         </div>
 
         {/* Activity log */}
-        <div className="p-4 sm:p-6">
+        <div className="p-4 sm:p-6 bg-[#c7f1c2]">
           {sortedDates.length === 0 ? (
             <p className="text-sm text-gray-400 text-center py-12">
               nenhuma atividade registrada
@@ -228,6 +234,9 @@ function Dashboard() {
                       <tr>
                         <th className="text-left text-xs text-gray-400 font-normal pb-1 w-20">hora</th>
                         <th className="text-left text-xs text-gray-400 font-normal pb-1 w-36">usuário</th>
+                        <th className="text-left text-xs text-gray-400 font-normal pb-1 w-20">início</th>
+                        <th className="text-left text-xs text-gray-400 font-normal pb-1 w-20">término</th>
+                        <th className="text-left text-xs text-gray-400 font-normal pb-1 w-24">duração</th>
                         <th className="text-left text-xs text-gray-400 font-normal pb-1">log</th>
                       </tr>
                     </thead>
@@ -243,11 +252,15 @@ function Dashboard() {
                               • {formatTime(activity.createdAt)}
                             </td>
                             <td className="py-2 text-gray-600 align-top">{activity.username}</td>
+                            <td className="py-2 text-gray-600 align-top">
+                              {activity.startTime ? formatTime(activity.startTime) : ""}
+                            </td>
+                            <td className="py-2 text-gray-600 align-top">
+                              {activity.endTime ? formatTime(activity.endTime) : ""}
+                            </td>
+                            <td className="py-2 text-gray-600 align-top">{duration ?? ""}</td>
                             <td className="py-2 text-gray-800 align-top">
                               {activity.description}
-                              {duration && (
-                                <span className="ml-2 text-xs text-gray-400">({duration})</span>
-                              )}
                             </td>
                           </tr>
                         )
@@ -264,10 +277,17 @@ function Dashboard() {
                           : null
                       return (
                         <li key={activity.id} className="border-t border-gray-100 pt-2">
-                          <div className="flex gap-1 text-xs text-gray-500 mb-0.5">
+                          <div className="flex flex-wrap gap-x-2 gap-y-0.5 text-xs text-gray-500 mb-0.5">
                             <span>• {formatTime(activity.createdAt)}</span>
                             <span className="text-gray-400">{activity.username}</span>
-                            {duration && <span className="text-gray-400">({duration})</span>}
+                            {(activity.startTime || activity.endTime) && (
+                              <span className="text-gray-400">
+                                {activity.startTime ? formatTime(activity.startTime) : "—"}
+                                {" → "}
+                                {activity.endTime ? formatTime(activity.endTime) : "—"}
+                              </span>
+                            )}
+                            {duration && <span className="text-gray-400">{duration}</span>}
                           </div>
                           <p className="text-sm text-gray-800">{activity.description}</p>
                         </li>
