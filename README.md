@@ -72,6 +72,10 @@ Since
 </details>
 
 ## Research done:
+
+<details>
+  <summary>List of documentations and articles</summary>
+
 * https://nextjs.org/docs/app
     * setting up: https://nextjs.org/docs/app/api-reference/cli/create-next-app
     * API route: https://nextjs.org/docs/app/api-reference/functions/next-response
@@ -94,6 +98,8 @@ Since
     * https://medium.com/@jaymesonmendes/setting-up-a-ci-cd-pipeline-with-github-actions-dockerhub-and-kubernetes-04b147867907 and https://github.com/docker/login-action
     * https://www.prisma.io/docs/orm/prisma-client/deployment/deploy-database-changes-with-prisma-migrate
     * https://vercel.com/kb/guide/how-can-i-use-github-actions-with-vercel
+
+</details>
 
 ## Improvements
 Since the scope of this project is demonstrating my skills and thought processes, I'll leave the ideas I had of the next steps I would work on to develop this further.
