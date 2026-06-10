@@ -81,6 +81,8 @@ function Dashboard() {
   }, [])
 
   useEffect(() => {
+    // setState happens asynchronously after the fetch resolves, so this is not a cascading render
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (status === "authenticated") fetchActivities()
   }, [status, fetchActivities])
 
