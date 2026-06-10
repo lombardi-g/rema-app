@@ -18,7 +18,7 @@ jobs:
           cache-dependency-path: registro-atividades/package-lock.json
       - run: npm ci
       - run: npx prisma generate
-      # - run: npm run lint
+      - run: npm run lint
       - run: npx tsc --noEmit
 
   build-and-push:
