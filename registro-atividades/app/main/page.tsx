@@ -6,11 +6,12 @@ import { useState, useEffect, useCallback } from "react"
 
 type Activity = {
   id: number
+  title: string | null
   description: string
   startTime: string | null
   endTime: string | null
   createdAt: string
-  userId: number
+  userId: string
   username: string
 }
 
@@ -66,6 +67,7 @@ function Dashboard() {
   const router = useRouter()
 
   const [activities, setActivities] = useState<Activity[]>([])
+  const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const [startTime, setStartTime] = useState("")
   const [endTime, setEndTime] = useState("")
@@ -86,13 +88,12 @@ function Dashboard() {
     if (status === "authenticated") fetchActivities()
   }, [status, fetchActivities])
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
+  async function handleSubmit() {
     if (!description.trim()) return
     setSubmitting(true)
 
     const usersRes = await fetch("/api?resource=users")
-    const users: { id: number; username: string }[] = await usersRes.json()
+    const users: { id: string; username: string }[] = await usersRes.json()
     const me = users.find((u) => u.username === session?.user?.name)
     if (!me) { setSubmitting(false); return }
 
@@ -100,13 +101,15 @@ function Dashboard() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        title: title.trim() || undefined,
         description: description.trim(),
         userId: me.id,
-        startTime: startTime || undefined,
-        endTime: endTime || undefined,
+        startTime: startTime ? new Date(startTime).toISOString() : undefined,
+        endTime: endTime ? new Date(endTime).toISOString() : undefined,
       }),
     })
 
+    setTitle("")
     setDescription("")
     setStartTime("")
     setEndTime("")
@@ -136,7 +139,20 @@ function Dashboard() {
             className="shrink-0 w-14 h-14 rounded-full border-2 border-gray-300 object-cover"
           />
 
-          <form onSubmit={handleSubmit} className="flex-1 flex flex-col gap-2">
+          <form className="flex-1 flex flex-col gap-2">
+            {/* Title row */}
+            <div className="flex gap-2">
+              <div className="flex-1 flex flex-col gap-0.5">
+                <label className="text-xs text-gray-400">título</label>
+                <input
+                  type="text"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  className="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:outline-none focus:border-gray-500"
+                />
+              </div>
+            </div>
+
             {/* Description row */}
             <div className="flex gap-2">
               <div className="flex-1 flex flex-col gap-0.5">
@@ -171,7 +187,8 @@ function Dashboard() {
                 />
               </div>
               <button
-                type="submit"
+                type="button"
+                onClick={handleSubmit}
                 disabled={submitting}
                 className="px-4 py-1.5 border border-gray-300 rounded text-sm hover:bg-gray-50 disabled:opacity-40 transition-colors"
               >
@@ -219,6 +236,7 @@ function Dashboard() {
                         <th className="text-left text-xs text-gray-400 font-normal pb-1 w-20">início</th>
                         <th className="text-left text-xs text-gray-400 font-normal pb-1 w-20">término</th>
                         <th className="text-left text-xs text-gray-400 font-normal pb-1 w-24">duração</th>
+                        <th className="text-left text-xs text-gray-400 font-normal pb-1 w-40">título</th>
                         <th className="text-left text-xs text-gray-400 font-normal pb-1">log</th>
                       </tr>
                     </thead>
@@ -241,6 +259,9 @@ function Dashboard() {
                               {activity.endTime ? formatTime(activity.endTime) : ""}
                             </td>
                             <td className="py-2 text-gray-600 align-top">{duration ?? ""}</td>
+                            <td className="py-2 text-gray-700 align-top">
+                              {activity.title ?? ""}
+                            </td>
                             <td className="py-2 text-gray-800 align-top">
                               {activity.description}
                             </td>
@@ -271,6 +292,9 @@ function Dashboard() {
                             )}
                             {duration && <span className="text-gray-400">{duration}</span>}
                           </div>
+                          {activity.title && (
+                            <p className="text-sm font-medium text-gray-700">{activity.title}</p>
+                          )}
                           <p className="text-sm text-gray-800">{activity.description}</p>
                         </li>
                       )

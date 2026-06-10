@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
   const body = await request.json()
 
   if (resource === "activities") {
-    const { description, userId, startTime, endTime } = body
+    const { title, description, userId, startTime, endTime } = body
     if (!description || !userId) {
       return NextResponse.json(
         { error: "'description' and 'userId' are required" },
@@ -43,9 +43,9 @@ export async function POST(request: NextRequest) {
       )
     }
     const { rows } = await pool.query(
-      `INSERT INTO "Activity" (description, "userId", "startTime", "endTime", "createdAt")
-       VALUES ($1, $2, $3, $4, NOW()) RETURNING *`,
-      [description, userId, startTime ?? null, endTime ?? null]
+      `INSERT INTO "Activity" (title, description, "userId", "startTime", "endTime", "createdAt")
+       VALUES ($1, $2, $3, $4, $5, NOW()) RETURNING *`,
+      [title ?? null, description, userId, startTime ?? null, endTime ?? null]
     )
     return NextResponse.json(rows[0], { status: 201 })
   }
