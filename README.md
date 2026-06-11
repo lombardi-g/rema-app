@@ -1,6 +1,6 @@
 # Activity log app
 This project is part of a selection process.
-It consists of an activity log app with authentication, database updates and a cloud-hosted api.
+It consists of an activity log app with authentication, database insertions, a cloud-hosted api, and an analytics report.
 
 > To get started, use these credentials
 
@@ -36,18 +36,25 @@ This sketch demonstrates how to build and deploy the app, using free services wh
 
 ```json
   [{
-  "description":"test log 1",
-  "createdAt":"2026-06-09T16:10:09.000Z",
-  "id":2,
-  "userId":1
+  "id": 2,
+  "title": null,
+  "description": "test log 1",
+  "startTime": "2026-06-09T12:00:00.000Z",
+  "endTime": "2026-06-09T13:00:00.000Z",
+  "createdAt": "2026-06-09T16:10:09.000Z",
+  "userId": "b1f2c3d4-5678-90ab-cdef-1234567890ab",
+  "username": "guest"
   }]
   ```
   #### POST
-  Insert a new entry in the database by providing an Id and description
+  Insert a new entry in the database by providing a userId and description
 | Parameter        | requirement           |
 | ------------- |:-------------:|
-| Id      | required |
-| Description| required   |
+| description | required   |
+| userId      | required |
+| title       | optional |
+| startTime   | optional |
+| endTime     | optional |
 
 Method: POST
 `/api?resource=activities`
@@ -65,14 +72,15 @@ body
 <br> Response sample
 
 ```json
-[{
-  "description":"test log 2",
-  "createdAt":"2026-06-09T17:25:19.000Z",
-  "id":2,
-  "userId":1,
-  "endTime": 2026-06-09T13:00:00.000Z,
-  "startTime": 2026-06-09T12:00:00.000Z
-}]
+{
+  "id": 2,
+  "title": null,
+  "description": "test log 2",
+  "userId": "b1f2c3d4-5678-90ab-cdef-1234567890ab",
+  "startTime": "2026-06-09T12:00:00.000Z",
+  "endTime": "2026-06-09T13:00:00.000Z",
+  "createdAt": "2026-06-09T17:25:19.000Z"
+}
 ```
 
   #### DELETE

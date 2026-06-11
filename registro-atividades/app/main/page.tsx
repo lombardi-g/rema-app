@@ -140,8 +140,8 @@ function Dashboard() {
           />
 
           <form className="flex-1 flex flex-col gap-2">
-            {/* Title row */}
-            <div className="flex gap-2">
+            {/* Title row + dashboard button (button on the right shortens the title input) */}
+            <div className="flex items-end gap-2">
               <div className="flex-1 flex flex-col gap-0.5">
                 <label className="text-xs text-gray-400">título</label>
                 <input
@@ -151,6 +151,13 @@ function Dashboard() {
                   className="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:outline-none focus:border-gray-500"
                 />
               </div>
+              <button
+                type="button"
+                onClick={() => router.push("/dashboard")}
+                className="shrink-0 px-4 py-1.5 border border-gray-300 rounded text-sm hover:bg-gray-50 transition-colors"
+              >
+                dashboard
+              </button>
             </div>
 
             {/* Description row */}
