@@ -145,7 +145,7 @@ Replace `$id` with the activity id
 * In production, passwords should be hashed using bcrypt
 * Restrict POST and DELETE usage with tokens in endpoint
 * UX: Add a sticky css so that scrolling doesn't hide the input section
-* Add a dashboard page showing analytics
+* ~~Add a dashboard page showing analytics~~ done
 * Switch start date and end date to brazil format (dd/mm/yyyy)
 * Block POST if startdate is equal or after end date
 * A refresh feature to update multiple users logging at the same time
